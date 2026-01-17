@@ -6,16 +6,25 @@ pipeline {
     }
 
     stages {
-        stage('Install') {
+        stage('Install Dependencies') {
             steps {
                 sh 'npm install'
             }
         }
 
-        stage('Run') {
+        stage('Run Application') {
             steps {
-                sh 'node app.js'
+                sh 'npm start'
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Node.js application started successfully'
+        }
+        failure {
+            echo '❌ Pipeline failed'
         }
     }
 }
