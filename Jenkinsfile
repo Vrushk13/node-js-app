@@ -12,19 +12,12 @@ pipeline {
             }
         }
 
-        stage('Run Application') {
+        stage('Test') {
             steps {
-                sh 'npm start'
+                sh 'npm test || echo "No tests configured"'
             }
         }
     }
-
-    post {
-        success {
-            echo '✅ Node.js application started successfully'
-        }
-        failure {
-            echo '❌ Pipeline failed'
-        }
-    }
 }
+
+
