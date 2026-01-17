@@ -1,48 +1,18 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS'   // Name as configured in Jenkins → Global Tool Configuration
-    }
-
-    environment {
-        APP_NAME = "nodejs-app"
-        PORT = "3000"
-    }
-
     stages {
-
-        stage('Install Dependencies') {
+        stage('Install') {
             steps {
                 sh 'npm install'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run') {
             steps {
-                sh 'npm test || echo "No tests found"'
+                sh 'node app.js'
             }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'npm run build || echo "No build step"'
-            }
-        }
-
-        stage('Start Application') {
-            steps {
-                sh 'npm start &'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo '✅ Pipeline executed successfully!'
-        }
-        failure {
-            echo '❌ Pipeline failed!'
         }
     }
 }
+
